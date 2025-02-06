@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <select id="prioritySelect">
+            <option value="1">High Priority</option>
+            <option value="0">Low Priority</option>
+        </select>
+        <button onclick="addTask()">Add Task</button>
+        
+        <div>
+            <button onclick="showImportantTasks()">Show only the important tasks</button>
+            <button onclick="showNotImportantTasks()">Show the tasks that are not important</button>
+            <button onclick="showAllTasks()">Show all the tasks</button>
+        </div>
+
+        <ul id="taskList"></ul>
+    </div>
+
+    <script>
+        let tasks = [];
+
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const prioritySelect = document.getElementById('prioritySelect');
+            
+            if (taskInput.value.trim() === '') {
+                alert('Please enter a task.');
+                return;
+            }
+
+            const task = {
+                description: taskInput.value,
+                priority: parseInt(prioritySelect.value)
+            };
+
+            tasks.push(task);
+            taskInput.value = '';
+            showAllTasks();
+        }
+
+        function showAllTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task.description;
+                li.className = task.priority === 1 ? 'high-priority' : 'low-priority';
+                taskList.appendChild(li);
+            });
+        }
+
+        function showImportantTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            tasks.filter(task => task.priority === 1).forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task.description;
+                li.className = 'high-priority';
+                taskList.appendChild(li);
+            });
+        }
+
+        function showNotImportantTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            tasks.filter(task => task.priority === 0).forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task.description;
+                li.className = 'low-priority';
+                taskList.appendChild(li);
+            });
+        }
+
+        showAllTasks();
+    </script>
+</body>
+</html>
+</html>
