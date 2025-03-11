@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="ex2.css">
+</head>
+<body>
+    <div id="task-form">
+        <input type="text" id="task-input" placeholder="Enter a new task">
+        <select id="priority-select">
+            <option value="0">Low Priority</option>
+            <option value="1">High Priority</option>
+        </select>
+        <button id="add-task-btn">Add Task</button>
+    </div>
+    <div id="task-container"></div>
+    <script>
+        let tasks = [
+            { description: "Task 1", priority: 1 },
+            { description: "Task 2", priority: 0 },
+            { description: "Task 3", priority: 1 }
+        ];
+
+        function displayTasks(tasks) {
+            const taskContainer = document.getElementById('task-container');
+            taskContainer.innerHTML = '';
+
+            tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.textContent = task.description;
+                taskElement.className = task.priority === 1 ? 'priority-high' : 'priority-low';
+                taskContainer.appendChild(taskElement);
+            });
+        }
+
+        document.getElementById('add-task-btn').addEventListener('click', function() {
+            const taskInput = document.getElementById('task-input');
+            const prioritySelect = document.getElementById('priority-select');
+
+            const newTask = {
+                description: taskInput.value,
+                priority: parseInt(prioritySelect.value)
+            };
+
+            tasks.push(newTask);
+            displayTasks(tasks);
+
+            taskInput.value = '';
+            prioritySelect.value = '0';
+    });
+
+    displayTasks(tasks);
+    </script>
+</body>
+</html>

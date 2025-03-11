@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="ex1.css">
+</head>
+<body>
+    <div id="task-container"></div>
+    <script>
+        let tasks = [
+            { description: "Task 1", priority: 1 },
+            { description: "Task 2", priority: 0 },
+            { description: "Task 3", priority: 1 }
+        ];
+
+        function displayTasks(tasks) {
+            const taskContainer = document.getElementById('task-container');
+            taskContainer.innerHTML = '';
+
+            tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.textContent = task.description;
+                taskElement.className = task.priority === 1 ? 'priority-high' : 'priority-low';
+                taskContainer.appendChild(taskElement);
+            });
+        }
+
+        displayTasks(tasks);
+    </script>
+</body>
+</html>
